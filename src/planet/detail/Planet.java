@@ -23,6 +23,10 @@ public class Planet {
 	
 	private PlanetGateway gateway;
 	
+	public Planet() {
+		
+	}
+	
 	public Planet(String planetImage, String planetName, 
 					float planetDiameterKM, float planetDiameterM, 
 					float planetMeanSurfaceTempC, float planetMeanSurfaceTempF, 
@@ -52,17 +56,17 @@ public class Planet {
 
 	//implement biz logic
 	
-	public void eat() {
-		//eat
-	}
-	
-	public void sleep() {
-		//sleep
-	}
-	
-	public void work() {
-		//work
-	}
+//	public void eat() {
+//		//eat
+//	}
+//	
+//	public void sleep() {
+//		//sleep
+//	}
+//	
+//	public void work() {
+//		//work
+//	}
 	
 	//delegate complexity
 	
@@ -73,6 +77,14 @@ public class Planet {
 			throw new GatewayException(e);
 		}
 	}
+	
+//	public void load() throws GatewayException {
+//		try {
+//			gateway.load();
+//		} catch(GatewayException e) {
+//			throw new GatewayException(e);
+//		}
+//	}
 
 	//validators
 

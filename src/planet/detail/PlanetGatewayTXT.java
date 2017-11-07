@@ -8,5 +8,16 @@ public class PlanetGatewayTXT extends PlanetGateway {
 
 		System.out.println("Saving " + planet);
 	}
+	
+//	@Override
+//	public Planet load() throws GatewayException {
+//		Planet planet = null;
+//		
+//		//Browse for and read from .txt file of saved planet
+//		
+//		System.out.println("Loading " + planet);
+//		
+//		return planet;
+//	}
 
 }

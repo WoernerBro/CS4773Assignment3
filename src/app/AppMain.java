@@ -9,6 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import planet.detail.Planet;
 import planet.detail.PlanetController;
 
 public class AppMain extends Application {
@@ -23,7 +24,8 @@ public class AppMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		PlanetController controller = new PlanetController();
+		Planet planet = new Planet();
+		PlanetController controller = new PlanetController(planet);
 
 		FXMLLoader loader = new FXMLLoader(controller.getClass().getResource("PlanetView.fxml"));
 		loader.setController(controller);

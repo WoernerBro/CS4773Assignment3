@@ -39,16 +39,37 @@ public class PlanetController {
 
     @FXML
     private Label fancyPlanetName;
+    
+    private Planet planet;
 
+    public PlanetController(Planet planet) {
+    	this.planet = planet;
+    }
+    
     @FXML
     void selectImage(ActionEvent event) {
+    	try {
+    		
+    	} catch(GatewayException e) {
+    		System.err.println(e.getMessage());
+    	}
     }
 
     @FXML
     void loadPlanet(ActionEvent event) {
+    	try {
+    		
+    	} catch(GatewayException e) {
+    		System.err.println(e.getMessage());
+    	}
     }
     
     @FXML
     void savePlanet(ActionEvent event) {
+    	try {
+    		planet.save();
+    	} catch(GatewayException e) {
+    		System.err.println(e.getMessage());
+    	}
     }
 }
