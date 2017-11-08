@@ -137,8 +137,8 @@ public class Planet {
 	}
 
 	public void setPlanetName(String planetName) {
-		if(!isValidPlanetName(planetName))
-			throw new InvalidPlanetException("Planet name is invalid");
+//		if(!isValidPlanetName(planetName))
+//			throw new InvalidPlanetException("Planet name is invalid");
 		
 		this.planetName.setValue(planetName);
 		setFancyPlanetName(getPlanetName());
@@ -153,8 +153,8 @@ public class Planet {
 	}
 
 	public void setPlanetDiameterKM(float planetDiameterKM) {
-		if(!isValidPlanetDiameterKM(planetDiameterKM))
-			throw new InvalidPlanetException("Planet diameter(KM) is invalid");
+//		if(!isValidPlanetDiameterKM(planetDiameterKM))
+//			throw new InvalidPlanetException("Planet diameter(KM) is invalid");
 		
 		this.planetDiameterKM.setValue(planetDiameterKM);
 		setPlanetDiameterM(getPlanetDiameterKM());
@@ -181,8 +181,8 @@ public class Planet {
 	}
 
 	public void setPlanetMeanSurfaceTempC(float planetMeanSurfaceTempC) {
-		if(!isValidPlanetMeanSurfaceTempC(planetMeanSurfaceTempC))
-			throw new InvalidPlanetException("Planet mean surface tempuratue(C) is invalid");
+//		if(!isValidPlanetMeanSurfaceTempC(planetMeanSurfaceTempC))
+//			throw new InvalidPlanetException("Planet mean surface tempuratue(C) is invalid");
 		
 		this.planetMeanSurfaceTempC.setValue(planetMeanSurfaceTempC);
 		setPlanetMeanSurfaceTempF(getPlanetMeanSurfaceTempC());
@@ -209,8 +209,8 @@ public class Planet {
 	}
 
 	public void setPlanetNumberOfMoons(int planetNumberOfMoons) {
-		if(!isValidPlanetNumberOfMoons(planetNumberOfMoons))
-			throw new InvalidPlanetException("Planet number of moons is invalid");
+//		if(!isValidPlanetNumberOfMoons(planetNumberOfMoons))
+//			throw new InvalidPlanetException("Planet number of moons is invalid");
 		
 		this.planetNumberOfMoons.setValue(planetNumberOfMoons);
 	}
