@@ -65,7 +65,7 @@ public class PlanetController implements Initializable {
     	planetDiameterM.setEditable(false);
     	planetMeanSurfaceTempF.setEditable(false);
     	planetImage.setImage(new Image("file:images/no_image.png"));
-        planet.setPlanetImage("no_image.png");
+        planet.setPlanetImage("file:images/no_image.png");
     	planetName.setText("");
     	planet.setPlanetName("");
 		planetDiameterKM.setText("");
@@ -87,8 +87,8 @@ public class PlanetController implements Initializable {
              BufferedImage bufferedImage = ImageIO.read(file);
              Image image = SwingFXUtils.toFXImage(bufferedImage, null);
              planetImage.setImage(image);
-             planet.setPlanetImage(file.getName());
-             System.out.println(file.getName());
+             planet.setPlanetImage("file:images/"+file.getName());
+             System.out.println(planet.getPlanetImage());
     	} catch(IOException e) {
     		System.err.println(e.getMessage());
     	}
@@ -98,6 +98,7 @@ public class PlanetController implements Initializable {
     void loadPlanet(ActionEvent event) {
     	try {
     		planet = planet.load();
+    		planet.setPlanetImage(planet.getPlanetImage());
     		planetName.setText(planet.getPlanetName());
 			planetDiameterKM.setText(String.valueOf(planet.getPlanetDiameterKM()));
 			planetMeanSurfaceTempC.setText(String.valueOf(planet.getPlanetMeanSurfaceTempC()));
@@ -110,32 +111,9 @@ public class PlanetController implements Initializable {
     @FXML
     void savePlanet(ActionEvent event) {
     	try {
-    		planet.save();
+    		planet.save(planet);
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
     	}
     }
-    
-//    private class PlanetNameChangeListener implements ChangeListener<String> {
-//		private boolean skipLabelMessage = false;
-//
-//		@Override
-//		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//			try {
-//				planet.setPlanetName(newValue);
-//				if(!skipLabelMessage)
-//					planetNameMessage.setText("");
-//				skipLabelMessage = false;
-//			} catch(InvalidPersonException e) {
-//				//System.err.println(e.getMessage());
-//				firstNameMessage.setText(e.getMessage());
-//				skipLabelMessage = true;
-//				//reset firstName to last good value
-//				//Note this calls this changed event with the oldValue
-//				//which is why we need bypass switch to avoid immediately clearing the error message
-//				firstName.setText(oldValue);
-//			}
-//		}
-//    	
-//    }
 }

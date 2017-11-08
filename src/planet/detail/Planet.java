@@ -84,7 +84,7 @@ public class Planet {
 	
 	//delegate complexity
 	
-	public void save() throws GatewayException {
+	public void save(Planet planet) throws GatewayException {
 		try {
 			gateway.save(this);
 		} catch(GatewayException e) {
