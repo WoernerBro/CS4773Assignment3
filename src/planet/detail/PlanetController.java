@@ -5,15 +5,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import mvc.InvalidPersonException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,7 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
-public class PlanetController {
+public class PlanetController implements Initializable {
 	
 	FileChooser fileChooser = new FileChooser();
 
@@ -56,9 +58,23 @@ public class PlanetController {
 
     public PlanetController(Planet planet) {
     	this.planet = planet;
+    }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
     	planetDiameterM.setEditable(false);
     	planetMeanSurfaceTempF.setEditable(false);
-    }
+    	planetImage.setImage(new Image("file:images/no_image.png"));
+        planet.setPlanetImage("no_image.png");
+    	planetName.setText("");
+    	planet.setPlanetName("");
+		planetDiameterKM.setText("");
+		planet.setPlanetDiameterKM(-1);
+		planetMeanSurfaceTempC.setText("");
+		planet.setPlanetMeanSurfaceTempC(-300);
+		planetNumberOfMoons.setText("");
+		planet.setPlanetNumberOfMoons(-1);
+	}
     
     @FXML
     void selectImage(ActionEvent event) {
@@ -71,7 +87,8 @@ public class PlanetController {
              BufferedImage bufferedImage = ImageIO.read(file);
              Image image = SwingFXUtils.toFXImage(bufferedImage, null);
              planetImage.setImage(image);
-             planet.setPlanetImage(file.toString());
+             planet.setPlanetImage(file.getName());
+             System.out.println(file.getName());
     	} catch(IOException e) {
     		System.err.println(e.getMessage());
     	}
@@ -99,26 +116,26 @@ public class PlanetController {
     	}
     }
     
-    private class PlanetNameChangeListener implements ChangeListener<String> {
-		private boolean skipLabelMessage = false;
-
-		@Override
-		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-			try {
-				planet.setPlanetName(newValue);
-				if(!skipLabelMessage)
-					planetNameMessage.setText("");
-				skipLabelMessage = false;
-			} catch(InvalidPersonException e) {
-				//System.err.println(e.getMessage());
-				firstNameMessage.setText(e.getMessage());
-				skipLabelMessage = true;
-				//reset firstName to last good value
-				//Note this calls this changed event with the oldValue
-				//which is why we need bypass switch to avoid immediately clearing the error message
-				firstName.setText(oldValue);
-			}
-		}
-    	
-    }
+//    private class PlanetNameChangeListener implements ChangeListener<String> {
+//		private boolean skipLabelMessage = false;
+//
+//		@Override
+//		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//			try {
+//				planet.setPlanetName(newValue);
+//				if(!skipLabelMessage)
+//					planetNameMessage.setText("");
+//				skipLabelMessage = false;
+//			} catch(InvalidPersonException e) {
+//				//System.err.println(e.getMessage());
+//				firstNameMessage.setText(e.getMessage());
+//				skipLabelMessage = true;
+//				//reset firstName to last good value
+//				//Note this calls this changed event with the oldValue
+//				//which is why we need bypass switch to avoid immediately clearing the error message
+//				firstName.setText(oldValue);
+//			}
+//		}
+//    	
+//    }
 }

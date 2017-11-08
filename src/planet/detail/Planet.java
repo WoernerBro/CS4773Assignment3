@@ -24,7 +24,24 @@ public class Planet {
 	private PlanetGateway gateway;
 	
 	public Planet() {
-		
+		try {
+			this.planetImage = new SimpleStringProperty();
+			this.planetName = new SimpleStringProperty();
+			this.planetDiameterKM = new SimpleFloatProperty();
+			this.planetDiameterM = new SimpleFloatProperty();
+			this.planetMeanSurfaceTempC = new SimpleFloatProperty();
+			this.planetMeanSurfaceTempF = new SimpleFloatProperty();
+			this.planetNumberOfMoons = new SimpleIntegerProperty();
+			this.fancyPlanetName = new SimpleStringProperty();
+			
+			setPlanetImage("no_image.png");
+	    	setPlanetName("");
+			setPlanetDiameterKM(-1);
+			setPlanetMeanSurfaceTempC(-300);
+			setPlanetNumberOfMoons(-1);
+		} catch(InvalidPlanetException e) {
+			throw new InvalidPlanetException(e);
+		}
 	}
 	
 	public Planet(String planetImage, String planetName, 
@@ -44,11 +61,8 @@ public class Planet {
 			setPlanetImage(planetImage);
 			setPlanetName(planetName);
 			setPlanetDiameterKM(planetDiameterKM);
-			setPlanetDiameterM(planetDiameterKM);
 			setPlanetMeanSurfaceTempC(planetMeanSurfaceTempC);
-			setPlanetMeanSurfaceTempF(planetMeanSurfaceTempC);
 			setPlanetNumberOfMoons(planetNumberOfMoons);
-			setFancyPlanetName(planetName);
 		} catch(InvalidPlanetException e) {
 			throw new InvalidPlanetException(e);
 		}
