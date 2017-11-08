@@ -21,7 +21,7 @@ public class Planet {
 	private SimpleStringProperty fancyPlanetName;
 	
 	
-	private PlanetGateway gateway;
+	private PlanetGatewayTXT gateway;
 	
 	public Planet() {
 		try {
@@ -86,7 +86,7 @@ public class Planet {
 	
 	public void save(Planet planet) throws GatewayException {
 		try {
-			gateway.save(this);
+			gateway.save(planet);
 		} catch(GatewayException e) {
 			throw new GatewayException(e);
 		}
@@ -245,11 +245,11 @@ public class Planet {
 		return fancyPlanetName;
 	}
 
-	public PlanetGateway getGateway() {
+	public PlanetGatewayTXT getGateway() {
 		return gateway;
 	}
 
-	public void setGateway(PlanetGateway gateway) {
+	public void setGateway(PlanetGatewayTXT gateway) {
 		this.gateway = gateway;
 	}
 
