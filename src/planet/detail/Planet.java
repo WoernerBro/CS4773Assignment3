@@ -78,13 +78,14 @@ public class Planet {
 		}
 	}
 	
-//	public void load() throws GatewayException {
-//		try {
-//			gateway.load();
-//		} catch(GatewayException e) {
-//			throw new GatewayException(e);
-//		}
-//	}
+	public Planet load() throws GatewayException {
+		try {
+			gateway.load();
+		} catch(GatewayException e) {
+			throw new GatewayException(e);
+		}
+		return this;
+	}
 
 	//validators
 
