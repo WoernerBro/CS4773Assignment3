@@ -3,90 +3,53 @@ package planet.detail;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.FloatProperty;
-
 public class Planet {
-	private SimpleStringProperty planetImage;
-	private SimpleStringProperty planetName;
-	private SimpleFloatProperty planetDiameterKM;
-	private SimpleFloatProperty planetDiameterM;
-	private SimpleFloatProperty planetMeanSurfaceTempC;
-	private SimpleFloatProperty planetMeanSurfaceTempF;
-	private SimpleIntegerProperty planetNumberOfMoons;
-	private SimpleStringProperty fancyPlanetName;
+	private String planetImage;
+	private String planetName;
+	private float planetDiameterKM;
+	private float planetDiameterM;
+	private float planetMeanSurfaceTempC;
+	private float planetMeanSurfaceTempF;
+	private int planetNumberOfMoons;
+	private String fancyPlanetName;
 	
-	
-	private PlanetGatewayTXT gateway;
+	private PlanetGateway gateway;
 	
 	public Planet() {
 		try {
-			this.planetImage = new SimpleStringProperty();
-			this.planetName = new SimpleStringProperty();
-			this.planetDiameterKM = new SimpleFloatProperty();
-			this.planetDiameterM = new SimpleFloatProperty();
-			this.planetMeanSurfaceTempC = new SimpleFloatProperty();
-			this.planetMeanSurfaceTempF = new SimpleFloatProperty();
-			this.planetNumberOfMoons = new SimpleIntegerProperty();
-			this.fancyPlanetName = new SimpleStringProperty();
-			
 			setPlanetImage("no_image.png");
 	    	setPlanetName("");
 			setPlanetDiameterKM(-1);
+			setPlanetDiameterM(-1);
 			setPlanetMeanSurfaceTempC(-300);
+			setPlanetMeanSurfaceTempF(-530);
 			setPlanetNumberOfMoons(-1);
+			setFancyPlanetName("");
 		} catch(InvalidPlanetException e) {
 			throw new InvalidPlanetException(e);
 		}
 	}
 	
-	public Planet(String planetImage, String planetName, 
-					float planetDiameterKM, float planetDiameterM, 
-					float planetMeanSurfaceTempC, float planetMeanSurfaceTempF, 
-					int planetNumberOfMoons, String fancyPlanetName) throws InvalidPlanetException {
+	public Planet(Planet planet) throws InvalidPlanetException {
 		try {
-			this.planetImage = new SimpleStringProperty();
-			this.planetName = new SimpleStringProperty();
-			this.planetDiameterKM = new SimpleFloatProperty();
-			this.planetDiameterM = new SimpleFloatProperty();
-			this.planetMeanSurfaceTempC = new SimpleFloatProperty();
-			this.planetMeanSurfaceTempF = new SimpleFloatProperty();
-			this.planetNumberOfMoons = new SimpleIntegerProperty();
-			this.fancyPlanetName = new SimpleStringProperty();
-			
-			setPlanetImage(planetImage);
-			setPlanetName(planetName);
-			setPlanetDiameterKM(planetDiameterKM);
-			setPlanetMeanSurfaceTempC(planetMeanSurfaceTempC);
-			setPlanetNumberOfMoons(planetNumberOfMoons);
+			setPlanetImage(planet.planetImage);
+			setPlanetName(planet.planetName);
+			setPlanetDiameterKM(planet.planetDiameterKM);
+			setPlanetDiameterM(planet.planetDiameterM);
+			setPlanetMeanSurfaceTempC(planet.planetMeanSurfaceTempC);
+			setPlanetMeanSurfaceTempC(planet.planetMeanSurfaceTempF);
+			setPlanetNumberOfMoons(planet.planetNumberOfMoons);
+			setFancyPlanetName(planet.fancyPlanetName);
 		} catch(InvalidPlanetException e) {
 			throw new InvalidPlanetException(e);
 		}
 	}
-
-	//implement biz logic
-	
-//	public void eat() {
-//		//eat
-//	}
-//	
-//	public void sleep() {
-//		//sleep
-//	}
-//	
-//	public void work() {
-//		//work
-//	}
 	
 	//delegate complexity
 	
-	public void save(Planet planet) throws GatewayException {
+	public void save() throws GatewayException {
 		try {
-			gateway.save(planet);
+			gateway.save(this);
 		} catch(GatewayException e) {
 			throw new GatewayException(e);
 		}
@@ -105,17 +68,17 @@ public class Planet {
 
 	public boolean isValidPlanetName(String testPlanetName) {
 		Pattern validCharacters = Pattern.compile("[^A-Za-z0-9 .-]");
-		Matcher validPlanetName = validCharacters.matcher(testPlanetName);
+		Matcher invalidPlanetName = validCharacters.matcher(testPlanetName);
 		
 		if(testPlanetName.length() < 1 || testPlanetName.length() > 255)
 			return false;
-		if(!validPlanetName.find())
+		if(invalidPlanetName.find())
 			return false;
 		return true;
 	}
 
 	public boolean isValidPlanetDiameterKM(float testPlanetDiameterKM) {
-		if(testPlanetDiameterKM < 0.0 || testPlanetDiameterKM > 200000.0)
+		if(testPlanetDiameterKM < 0 || testPlanetDiameterKM > 200000)
 			return false;
 		return true;
 	}
@@ -135,121 +98,74 @@ public class Planet {
 	//accessors
 	
 	public String getPlanetImage() {
-		return planetImage.getValue();
+		return planetImage;
 	}
 
 	public void setPlanetImage(String planetImage) {
-		this.planetImage.setValue(planetImage);
-	}
-
-	public StringProperty planetImageProperty() {
-		return planetName;
+		this.planetImage = planetImage;
 	}
 	
 	public String getPlanetName() {
-		return planetName.getValue();
+		return planetName;
 	}
 
 	public void setPlanetName(String planetName) {
-//		if(!isValidPlanetName(planetName))
-//			throw new InvalidPlanetException("Planet name is invalid");
-		
-		this.planetName.setValue(planetName);
-		setFancyPlanetName(getPlanetName());
-	}
-
-	public StringProperty planetNameProperty() {
-		return planetName;
+		this.planetName = planetName;
 	}
 	
 	public float getPlanetDiameterKM() {
-		return planetDiameterKM.getValue();
+		return planetDiameterKM;
 	}
 
 	public void setPlanetDiameterKM(float planetDiameterKM) {
-//		if(!isValidPlanetDiameterKM(planetDiameterKM))
-//			throw new InvalidPlanetException("Planet diameter(KM) is invalid");
-		
-		this.planetDiameterKM.setValue(planetDiameterKM);
-		setPlanetDiameterM(getPlanetDiameterKM());
-	}
-
-	public FloatProperty planetDiameterKMProperty() {
-		return planetDiameterKM;
+		this.planetDiameterKM = planetDiameterKM;
 	}
 	
 	public float getPlanetDiameterM() {
-		return planetDiameterM.getValue();
+		return planetDiameterM;
 	}
 
 	public void setPlanetDiameterM(float planetDiameterKM) {
-		this.planetDiameterM.setValue(planetDiameterKM*1000.0);
-	}
-
-	public FloatProperty planetDiameterMProperty() {
-		return planetDiameterM;
+		this.planetDiameterM = planetDiameterKM;
 	}
 	
 	public float getPlanetMeanSurfaceTempC() {
-		return planetMeanSurfaceTempC.getValue();
+		return planetMeanSurfaceTempC;
 	}
 
 	public void setPlanetMeanSurfaceTempC(float planetMeanSurfaceTempC) {
-//		if(!isValidPlanetMeanSurfaceTempC(planetMeanSurfaceTempC))
-//			throw new InvalidPlanetException("Planet mean surface tempuratue(C) is invalid");
-		
-		this.planetMeanSurfaceTempC.setValue(planetMeanSurfaceTempC);
-		setPlanetMeanSurfaceTempF(getPlanetMeanSurfaceTempC());
-	}
-
-	public FloatProperty planetMeanSurfaceTempC() {
-		return planetMeanSurfaceTempC;
+		this.planetMeanSurfaceTempC = planetMeanSurfaceTempC;
 	}
 	
 	public float getPlanetMeanSurfaceTempF() {
-		return planetMeanSurfaceTempF.getValue();
-	}
-
-	public void setPlanetMeanSurfaceTempF(float planetMeanSurfaceTempC) {
-		this.planetMeanSurfaceTempF.setValue(planetMeanSurfaceTempC*(9/5)+32.0);
-	}
-
-	public FloatProperty planetMeanSurfaceTempF() {
 		return planetMeanSurfaceTempF;
+	}
+
+	public void setPlanetMeanSurfaceTempF(float planetMeanSurfaceTempF) {
+		this.planetMeanSurfaceTempF = planetMeanSurfaceTempF;
 	}
 	
 	public int getPlanetNumberOfMoons() {
-		return planetNumberOfMoons.getValue();
+		return planetNumberOfMoons;
 	}
 
 	public void setPlanetNumberOfMoons(int planetNumberOfMoons) {
-//		if(!isValidPlanetNumberOfMoons(planetNumberOfMoons))
-//			throw new InvalidPlanetException("Planet number of moons is invalid");
-		
-		this.planetNumberOfMoons.setValue(planetNumberOfMoons);
-	}
-
-	public IntegerProperty planetNumberOfMoons() {
-		return planetNumberOfMoons;
+		this.planetNumberOfMoons = planetNumberOfMoons;
 	}
 	
 	public String getFancyPlanetName() {
-		return fancyPlanetName.getValue();
-	}
-
-	public void setFancyPlanetName(String planetName) {
-		this.fancyPlanetName.setValue(planetName);
-	}
-
-	public StringProperty fancyPlanetNameProperty() {
 		return fancyPlanetName;
 	}
 
-	public PlanetGatewayTXT getGateway() {
+	public void setFancyPlanetName(String fancyPlanetName) {
+		this.fancyPlanetName = fancyPlanetName;
+	}
+
+	public PlanetGateway getGateway() {
 		return gateway;
 	}
 
-	public void setGateway(PlanetGatewayTXT gateway) {
+	public void setGateway(PlanetGateway gateway) {
 		this.gateway = gateway;
 	}
 

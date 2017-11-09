@@ -2,9 +2,7 @@ package planet.detail;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -62,18 +60,24 @@ public class PlanetController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	planetDiameterM.setEditable(false);
-    	planetMeanSurfaceTempF.setEditable(false);
     	planetImage.setImage(new Image("file:images/no_image.png"));
         planet.setPlanetImage("file:images/no_image.png");
+        
     	planetName.setText("");
     	planet.setPlanetName("");
+    	
 		planetDiameterKM.setText("");
 		planet.setPlanetDiameterKM(-1);
+    	planetDiameterM.setEditable(false);
+    	
 		planetMeanSurfaceTempC.setText("");
 		planet.setPlanetMeanSurfaceTempC(-300);
+    	planetMeanSurfaceTempF.setEditable(false);
+    	
 		planetNumberOfMoons.setText("");
 		planet.setPlanetNumberOfMoons(-1);
+		
+		FocusChangeListeners();
 	}
     
     @FXML
@@ -88,12 +92,48 @@ public class PlanetController implements Initializable {
              Image image = SwingFXUtils.toFXImage(bufferedImage, null);
              planetImage.setImage(image);
              planet.setPlanetImage("file:images/"+file.getName());
-             System.out.println(planet.getPlanetImage());
     	} catch(IOException e) {
     		System.err.println(e.getMessage());
     	}
     }
 
+    @FXML
+    void savePlanet(ActionEvent event) {
+    	try {
+    		if(!planet.isValidPlanetName(planetName.getText())) {
+    			System.out.println("Name: "+planetName.getText());
+    			planetName.setText("");
+    			fancyPlanetName.setText("");
+    			throw new InvalidPlanetException("Planet name is invalid");
+    		}
+    		if(!planet.isValidPlanetDiameterKM(Float.valueOf(planetDiameterKM.getText()))) {
+    			planetDiameterKM.setText("");
+    			planetDiameterM.setText("");
+    			throw new InvalidPlanetException("Planet diameter(KM) is invalid");
+    		}
+    		if(!planet.isValidPlanetMeanSurfaceTempC(Float.valueOf(planetMeanSurfaceTempC.getText()))) {
+    			planetMeanSurfaceTempC.setText("");
+    			planetMeanSurfaceTempF.setText("");
+    			throw new InvalidPlanetException("Planet mean surface temperature(C) is invalid");
+    		}
+    		if(!planet.isValidPlanetNumberOfMoons(Integer.valueOf(planetNumberOfMoons.getText()))) {
+    			planetNumberOfMoons.setText("");
+    			throw new InvalidPlanetException("Planet number of moons is invalid");
+    		}
+    		
+    		planet.setPlanetName(planetName.getText());
+    		planet.setPlanetDiameterKM(Float.valueOf(planetDiameterKM.getText()));
+    		planet.setPlanetDiameterM(Float.valueOf(planetDiameterM.getText()));
+    		planet.setPlanetMeanSurfaceTempC(Float.valueOf(planetMeanSurfaceTempC.getText()));
+    		planet.setPlanetMeanSurfaceTempF(Float.valueOf(planetMeanSurfaceTempF.getText()));
+    		planet.setPlanetNumberOfMoons(Integer.valueOf(planetNumberOfMoons.getText()));
+    		planet.setFancyPlanetName(fancyPlanetName.getText());
+    		planet.save();
+    	} catch(GatewayException e) {
+    		System.err.println(e.getMessage());
+    	}
+    }
+    
     @FXML
     void loadPlanet(ActionEvent event) {
     	try {
@@ -101,19 +141,39 @@ public class PlanetController implements Initializable {
     		planet.setPlanetImage(planet.getPlanetImage());
     		planetName.setText(planet.getPlanetName());
 			planetDiameterKM.setText(String.valueOf(planet.getPlanetDiameterKM()));
+			planetDiameterM.setText(String.valueOf(planet.getPlanetDiameterM()));
 			planetMeanSurfaceTempC.setText(String.valueOf(planet.getPlanetMeanSurfaceTempC()));
+			planetMeanSurfaceTempF.setText(String.valueOf(planet.getPlanetMeanSurfaceTempF()));
 			planetNumberOfMoons.setText(String.valueOf(planet.getPlanetNumberOfMoons()));
+    		fancyPlanetName.setText(planet.getFancyPlanetName());
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
     	}
     }
     
-    @FXML
-    void savePlanet(ActionEvent event) {
-    	try {
-    		planet.save(planet);
-    	} catch(GatewayException e) {
-    		System.err.println(e.getMessage());
-    	}
+   void FocusChangeListeners() {
+    	planetName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+		        if (!newPropertyValue)
+		        	fancyPlanetName.setText(planetName.getText());
+		    }
+		});
+    	
+    	planetDiameterKM.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+		        if (!newPropertyValue)
+		        	planetDiameterM.setText(String.valueOf(Float.valueOf(planetDiameterKM.getText())/8f*5f));
+		    }
+		});
+    	
+    	planetMeanSurfaceTempC.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+		        if (!newPropertyValue)
+		        	planetMeanSurfaceTempF.setText(String.valueOf(Float.valueOf(planetMeanSurfaceTempC.getText())*(9f/5f)+32));
+		    }
+		});
     }
 }
