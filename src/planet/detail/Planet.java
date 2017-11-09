@@ -65,7 +65,7 @@ public class Planet {
 
 	//validators
 
-	public boolean isValidPlanetName(String testPlanetName) {
+	public boolean isValidPlanetName(String testPlanetName) {/**
 		Pattern validCharacters = Pattern.compile("[^A-Za-z0-9 .-]");
 		Matcher invalidPlanetName = validCharacters.matcher(testPlanetName);
 		
@@ -73,25 +73,29 @@ public class Planet {
 			return false;
 		if(invalidPlanetName.find())
 			return false;
-		return true;
+		return true;**/
+		return PlanetVaiidator.validatePlanetName(testPlanetName);
 	}
 
 	public boolean isValidPlanetDiameterKM(float testPlanetDiameterKM) {
-		if(testPlanetDiameterKM < 0 || testPlanetDiameterKM > 200000)
+		/**if(testPlanetDiameterKM < 0 || testPlanetDiameterKM > 200000)
 			return false;
-		return true;
+		return true;**/
+		return PlanetVaiidator.validateDiameter(testPlanetDiameterKM);
 	}
 	
 	public boolean isValidPlanetMeanSurfaceTempC(float testPlanetMeanSurfaceTempC) {
-		if(testPlanetMeanSurfaceTempC < -273.15 || testPlanetMeanSurfaceTempC > 500.0)
+		/**if(testPlanetMeanSurfaceTempC < -273.15 || testPlanetMeanSurfaceTempC > 500.0)
 			return false;
-		return true;
+		return true;**/
+		return PlanetVaiidator.validateSurfaceTemperature(testPlanetMeanSurfaceTempC);
 	}
 	
 	public boolean isValidPlanetNumberOfMoons(int testPlanetNumberOfMoons) {
-		if(testPlanetNumberOfMoons < 0 || testPlanetNumberOfMoons > 1000)
+		/**if(testPlanetNumberOfMoons < 0 || testPlanetNumberOfMoons > 1000)
 			return false;
-		return true;
+		return true;**/
+		return PlanetVaiidator.validNuberOfMoons(testPlanetNumberOfMoons);
 	}
 	
 	//accessors
