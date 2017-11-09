@@ -4,6 +4,6 @@ List team member names below. If not team member names, grader will assume solo 
 
 # HOURS		NAME
 7			Sean Woerner
-1			Lucas Tiedeman
+3			Lucas Tiedeman
 __			William Brandon Fisher
 __			Christian Andrada
