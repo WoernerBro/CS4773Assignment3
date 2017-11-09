@@ -57,11 +57,10 @@ public class Planet {
 	
 	public Planet load() throws GatewayException {
 		try {
-			gateway.load();
+			return gateway.load();
 		} catch(GatewayException e) {
 			throw new GatewayException(e);
 		}
-		return this;
 	}
 
 	//validators

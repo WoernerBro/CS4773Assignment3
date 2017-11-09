@@ -1,7 +1,13 @@
 package planet.detail;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Scanner;
+
+import javafx.stage.FileChooser;
+
 import java.io.IOException;
 
 public class PlanetGatewayTXT extends PlanetGateway {
@@ -10,13 +16,16 @@ public class PlanetGatewayTXT extends PlanetGateway {
 	
 	@Override
 	public void save(Planet planet) throws GatewayException {
+		System.out.println("Saving " + planet.getPlanetName() + "...");
 		filePath = planet.getPlanetName() + ".txt";
+		
 		try {
 			writeFile(planet);
 		} catch (IOException writeException) {
-			System.err.print(writeException);
+			System.err.println(writeException.getMessage());
 		}
-		System.out.println("Saving " + planet);
+		
+		System.out.println(planet.getPlanetName() + " saved!");
 	}
 	
 	public void writeFile(Planet planet) throws IOException {
@@ -29,13 +38,38 @@ public class PlanetGatewayTXT extends PlanetGateway {
 	
 	@Override
 	public Planet load() throws GatewayException {
-		Planet planet = null;
+        Planet planet = null;
+		System.out.println("Loading ...");
 		
-		//Browse for and read from .txt file of saved planet
+		FileChooser fileChooser = new FileChooser();
+   	 	FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.TXT");
+        fileChooser.getExtensionFilters().add(extFilterPNG);
+        File file = fileChooser.showOpenDialog(null);
+        
+        try {
+        	planet = readFile(file);
+        } catch (FileNotFoundException loadException) {
+        	System.err.println(loadException.getMessage());
+        }
 		
-		System.out.println("Loading " + planet);
-		
+		System.out.println(planet.getPlanetName() + " loaded!");
 		return planet;
 	}
 
+	public Planet readFile(File file) throws FileNotFoundException {
+		Scanner textReader = new Scanner(file);
+		
+		Planet planet = new Planet();
+		planet.setPlanetImage(textReader.nextLine());
+		planet.setPlanetName(textReader.nextLine());
+		planet.setPlanetDiameterKM(textReader.nextFloat());
+		planet.setPlanetDiameterM(textReader.nextFloat());
+		planet.setPlanetMeanSurfaceTempC(textReader.nextFloat());
+		planet.setPlanetMeanSurfaceTempF(textReader.nextFloat());
+		planet.setPlanetNumberOfMoons(textReader.nextInt());
+		
+		textReader.close();
+		
+		return planet;
+	}
 }
