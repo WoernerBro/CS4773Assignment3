@@ -130,7 +130,7 @@ public class PlanetController implements Initializable {
     void loadPlanet(ActionEvent event) {
     	try {
     		planet = planet.load();
-    		planet.setPlanetImage(planet.getPlanetImage());
+    		planetImage.setImage(new Image(planet.getPlanetImage()));
     		planetName.setText(planet.getPlanetName());
     		planetDiameterKM.setText(String.valueOf(planet.getPlanetDiameterKM()));
     		planetDiameterM.setText(String.valueOf(planet.getPlanetDiameterM()));

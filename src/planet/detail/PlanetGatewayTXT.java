@@ -67,6 +67,8 @@ public class PlanetGatewayTXT extends PlanetGateway {
 		planet.setPlanetMeanSurfaceTempC(textReader.nextFloat());
 		planet.setPlanetMeanSurfaceTempF(textReader.nextFloat());
 		planet.setPlanetNumberOfMoons(textReader.nextInt());
+		textReader.nextLine();
+		planet.setFancyPlanetName(textReader.nextLine());
 		
 		textReader.close();
 		
