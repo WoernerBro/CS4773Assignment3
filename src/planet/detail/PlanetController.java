@@ -78,7 +78,8 @@ public class PlanetController implements Initializable {
     		checkInvalidPlanetDiameter(planetDiameterKM);
     		checkInvalidPlanetMeanSurfaceTempC(planetMeanSurfaceTempC);
     		checkInvalidPlanetNumberOfMoons(planetNumberOfMoons);
-    		fetchFieldValues().save();
+    		setFieldValues();
+    		planet.save();
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
     	}
@@ -115,8 +116,7 @@ public class PlanetController implements Initializable {
 		}
     }
     
-    Planet fetchFieldValues () {
-    	Planet planet = new Planet();
+    void setFieldValues () {
 		planet.setPlanetName(planetName.getText());
 		planet.setPlanetDiameterKM(Float.valueOf(planetDiameterKM.getText()));
 		planet.setPlanetDiameterM(Float.valueOf(planetDiameterM.getText()));
@@ -124,10 +124,6 @@ public class PlanetController implements Initializable {
 		planet.setPlanetMeanSurfaceTempF(Float.valueOf(planetMeanSurfaceTempF.getText()));
 		planet.setPlanetNumberOfMoons(Integer.valueOf(planetNumberOfMoons.getText()));
 		planet.setFancyPlanetName(fancyPlanetName.getText());
-		
-		System.out.println("PlanetController.java: " + planet.toString());
-		
-    	return planet;
     }
     
     @FXML
