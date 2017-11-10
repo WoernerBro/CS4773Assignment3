@@ -32,7 +32,7 @@ public class PlanetValidator {
 		return true;
 	}
 	
-	public static boolean validNuberOfMoons(int testPlanetNumberOfMoons) {
+	public static boolean validateNumberOfMoons(int testPlanetNumberOfMoons) {
 		if(testPlanetNumberOfMoons < 0 || testPlanetNumberOfMoons > 1000)
 			return false;
 		return true;
