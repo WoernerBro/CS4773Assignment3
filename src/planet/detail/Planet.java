@@ -49,6 +49,7 @@ public class Planet {
 	
 	public void save() throws GatewayException {
 		try {
+			System.out.println("Planet.java: \n" + toString());
 			gateway.save(this);
 		} catch(GatewayException e) {
 			throw new GatewayException(e);
