@@ -155,7 +155,7 @@ public class PlanetController implements Initializable {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		        if (!newPropertyValue) {
-		        	/**if(!PlanetVaiidator.validatePlanetName(planetName.getText())){
+		        	/**if(!PlanetValidator.validatePlanetName(planetName.getText())){
 		        		System.out.println("Invalid planet name");
 		        		planetName.setText("Invalid");
 		        	}**/
@@ -171,7 +171,7 @@ public class PlanetController implements Initializable {
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		        if (!newPropertyValue) {
 		        	/**
-		        	if(!PlanetVaiidator.validateDiameter(Float.parseFloat(planetDiameterKM.getText()))){
+		        	if(!PlanetValidator.validateDiameter(Float.parseFloat(planetDiameterKM.getText()))){
 		        		System.out.println("Invalid diameter");
 		        		planetDiameterKM.setText("Invalid");
 		        	}**/
@@ -188,7 +188,7 @@ public class PlanetController implements Initializable {
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		       if (!newPropertyValue) {
 		        	/**
-		        	if(!PlanetVaiidator.validateSurfaceTemperature(Float.parseFloat(planetMeanSurfaceTempC.getText()))){
+		        	if(!PlanetValidator.validateSurfaceTemperature(Float.parseFloat(planetMeanSurfaceTempC.getText()))){
 		        		System.out.println("Invalid Surface Temp ");
 		        		planetMeanSurfaceTempC.setText("Invalid");
 		        	}else {
@@ -204,7 +204,7 @@ public class PlanetController implements Initializable {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		    	/**if(!newPropertyValue) {
-		    		if(!PlanetVaiidator.validateSurfaceTemperature((int) Float.parseFloat(planetNumberOfMoons.getText()))){
+		    		if(!PlanetValidator.validateSurfaceTemperature((int) Float.parseFloat(planetNumberOfMoons.getText()))){
 		        		System.out.println("Invalid Surface Temp ");
 		        		planetNumberOfMoons.setText("Invalid");
 		        	}

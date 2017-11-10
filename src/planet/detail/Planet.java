@@ -74,28 +74,28 @@ public class Planet {
 		if(invalidPlanetName.find())
 			return false;
 		return true;**/
-		return PlanetVaiidator.validatePlanetName(testPlanetName);
+		return PlanetValidator.validatePlanetName(testPlanetName);
 	}
 
 	public boolean isValidPlanetDiameterKM(float testPlanetDiameterKM) {
 		/**if(testPlanetDiameterKM < 0 || testPlanetDiameterKM > 200000)
 			return false;
 		return true;**/
-		return PlanetVaiidator.validateDiameter(testPlanetDiameterKM);
+		return PlanetValidator.validateDiameter(testPlanetDiameterKM);
 	}
 	
 	public boolean isValidPlanetMeanSurfaceTempC(float testPlanetMeanSurfaceTempC) {
 		/**if(testPlanetMeanSurfaceTempC < -273.15 || testPlanetMeanSurfaceTempC > 500.0)
 			return false;
 		return true;**/
-		return PlanetVaiidator.validateSurfaceTemperature(testPlanetMeanSurfaceTempC);
+		return PlanetValidator.validateSurfaceTemperature(testPlanetMeanSurfaceTempC);
 	}
 	
 	public boolean isValidPlanetNumberOfMoons(int testPlanetNumberOfMoons) {
 		/**if(testPlanetNumberOfMoons < 0 || testPlanetNumberOfMoons > 1000)
 			return false;
 		return true;**/
-		return PlanetVaiidator.validNuberOfMoons(testPlanetNumberOfMoons);
+		return PlanetValidator.validNuberOfMoons(testPlanetNumberOfMoons);
 	}
 	
 	//accessors
