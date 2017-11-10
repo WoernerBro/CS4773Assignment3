@@ -154,9 +154,14 @@ public class PlanetController implements Initializable {
     	planetName.focusedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-		        if (!newPropertyValue)
+		        if (!newPropertyValue) {
+		        	/**if(!PlanetVaiidator.validatePlanetName(planetName.getText())){
+		        		System.out.println("Invalid planet name");
+		        		planetName.setText("Invalid");
+		        	}**/
 		        	fancyPlanetName.setText(planetName.getText());
-		        else if (planetName.getText().equals("Invalid"))
+		        	
+		        }else if (planetName.getText().equals("Invalid"))
 		        	planetName.setText("");
 		    }
 		});
@@ -164,9 +169,16 @@ public class PlanetController implements Initializable {
     	planetDiameterKM.focusedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-		        if (!newPropertyValue)
+		        if (!newPropertyValue) {
+		        	/**
+		        	if(!PlanetVaiidator.validateDiameter(Float.parseFloat(planetDiameterKM.getText()))){
+		        		System.out.println("Invalid diameter");
+		        		planetDiameterKM.setText("Invalid");
+		        	}**/
+		        
 		        	planetDiameterM.setText(String.valueOf(Float.valueOf(planetDiameterKM.getText())/8f*5f));
-		        else if (planetDiameterKM.getText().equals("Invalid"))
+		       
+		        }else if (planetDiameterKM.getText().equals("Invalid"))
 		        	planetDiameterKM.setText("");
 		    }
 		});
@@ -174,9 +186,16 @@ public class PlanetController implements Initializable {
     	planetMeanSurfaceTempC.focusedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-		        if (!newPropertyValue)
-		        	planetMeanSurfaceTempF.setText(String.valueOf(Float.valueOf(planetMeanSurfaceTempC.getText())*(9f/5f)+32));
-		        else if (planetMeanSurfaceTempC.getText().equals("Invalid"))
+		       if (!newPropertyValue) {
+		        	/**
+		        	if(!PlanetVaiidator.validateSurfaceTemperature(Float.parseFloat(planetMeanSurfaceTempC.getText()))){
+		        		System.out.println("Invalid Surface Temp ");
+		        		planetMeanSurfaceTempC.setText("Invalid");
+		        	}else {
+		        **/
+		        		planetMeanSurfaceTempF.setText(String.valueOf(Float.valueOf(planetMeanSurfaceTempC.getText())*(9f/5f)+32));
+		        	//}
+		        }else if (planetMeanSurfaceTempC.getText().equals("Invalid"))
 		        	planetMeanSurfaceTempC.setText("");
 		    }
 		});
@@ -184,9 +203,16 @@ public class PlanetController implements Initializable {
     	planetNumberOfMoons.focusedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+		    	/**if(!newPropertyValue) {
+		    		if(!PlanetVaiidator.validateSurfaceTemperature((int) Float.parseFloat(planetNumberOfMoons.getText()))){
+		        		System.out.println("Invalid Surface Temp ");
+		        		planetNumberOfMoons.setText("Invalid");
+		        	}
+		    	}else {**/
 		    	if (newPropertyValue && planetNumberOfMoons.getText().equals("Invalid"))
 		    		planetNumberOfMoons.setText("");
-		    }
+		    	}
+		    //}
 		});
     }
 }
