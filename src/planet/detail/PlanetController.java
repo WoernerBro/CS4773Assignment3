@@ -47,17 +47,25 @@ public class PlanetController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
     	planetImage.setImage(new Image("file:images/no_image.png"));
-        planet.setPlanetImage("file:images/no_image.png");
     	planetName.setText("");
-    	planet.setPlanetName("");
 		planetDiameterKM.setText("");
-		planet.setPlanetDiameterKM(-1);
     	planetDiameterM.setEditable(false);
 		planetMeanSurfaceTempC.setText("");
-		planet.setPlanetMeanSurfaceTempC(-300);
     	planetMeanSurfaceTempF.setEditable(false);
 		planetNumberOfMoons.setText("");
-		planet.setPlanetNumberOfMoons(-1);
+		
+		/**
+		 * Should be able to remove this since the planet builder 
+		 * returns a default planet with the same values
+		 
+		//planet.setPlanetImage("file:images/no_image.png");
+		//planet.setPlanetName("");
+		//planet.setPlanetDiameterKM(-1);
+		//planet.setPlanetMeanSurfaceTempC(-300);
+		//planet.setPlanetNumberOfMoons(-1);
+		 **/
+		
+		planet = PlanetBuilder.makeEmptyPlanet();
 		FocusChangeListeners();
 	}
     
@@ -84,13 +92,20 @@ public class PlanetController implements Initializable {
     		validatePlanetDiameter();
     		validatePlanetSurfaceTemp();
     		validatePlanetNumberOfMoons();
+    		
+    		/**
+    		 *  Probably get rid of this planet bulder has update method
     		planet.setPlanetName(planetName.getText());
     		planet.setPlanetDiameterKM(Float.valueOf(planetDiameterKM.getText()));
     		planet.setPlanetDiameterM(Float.valueOf(planetDiameterM.getText()));
     		planet.setPlanetMeanSurfaceTempC(Float.valueOf(planetMeanSurfaceTempC.getText()));
     		planet.setPlanetMeanSurfaceTempF(Float.valueOf(planetMeanSurfaceTempF.getText()));
     		planet.setPlanetNumberOfMoons(Integer.valueOf(planetNumberOfMoons.getText()));
-    		planet.setFancyPlanetName(fancyPlanetName.getText());
+    		planet.setFancyPlanetName(fancyPlanetName.getText());**/
+    		
+    		planet = PlanetBuilder.updatePlanet(planet, planetName.getText(), Float.parseFloat(planetDiameterKM.getText()), 
+    				Float.parseFloat(planetDiameterM.getText()), Float.parseFloat(planetMeanSurfaceTempC.getText()), 
+    				Float.parseFloat(planetMeanSurfaceTempF.getText()), (int) Float.parseFloat(planetNumberOfMoons.getText()), fancyPlanetName.getText());
     		planet.save();
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
