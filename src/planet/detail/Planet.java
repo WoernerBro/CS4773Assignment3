@@ -22,6 +22,7 @@ public class Planet {
 			setPlanetMeanSurfaceTempF(-530);
 			setPlanetNumberOfMoons(-1);
 			setFancyPlanetName("");
+			setGateway(new PlanetGatewayTXT());
 		} catch(InvalidPlanetException e) {
 			throw new InvalidPlanetException(e);
 		}
@@ -42,10 +43,9 @@ public class Planet {
 		}
 	}
 	
-	//delegate complexity
-	
 	public void save() throws GatewayException {
 		try {
+			System.out.println("\n"+this.toString());
 			gateway.save(this);
 		} catch(GatewayException e) {
 			throw new GatewayException(e);
@@ -59,26 +59,6 @@ public class Planet {
 			throw new GatewayException(e);
 		}
 	}
-
-	//validators
-
-	public boolean isValidPlanetName(String testPlanetName) {
-		return PlanetValidator.validatePlanetName(testPlanetName);
-	}
-
-	public boolean isValidPlanetDiameterKM(float testPlanetDiameterKM) {
-		return PlanetValidator.validateDiameter(testPlanetDiameterKM);
-	}
-	
-	public boolean isValidPlanetMeanSurfaceTempC(float testPlanetMeanSurfaceTempC) {
-		return PlanetValidator.validateSurfaceTemperature(testPlanetMeanSurfaceTempC);
-	}
-	
-	public boolean isValidPlanetNumberOfMoons(int testPlanetNumberOfMoons) {
-		return PlanetValidator.validateNumberOfMoons(testPlanetNumberOfMoons);
-	}
-	
-	//accessors
 	
 	public String getPlanetImage() {
 		return planetImage;

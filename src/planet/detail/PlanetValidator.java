@@ -4,9 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlanetValidator {
-	
-	
-	
 	public static boolean validatePlanetName(String testPlanetName) {
 		Pattern validCharacters = Pattern.compile("[^A-Za-z0-9 .-]");
 		Matcher invalidPlanetName = validCharacters.matcher(testPlanetName);
@@ -19,10 +16,8 @@ public class PlanetValidator {
 	}
 
 	public static boolean validateDiameter(float testPlanetDiameterKM) {
-		if(testPlanetDiameterKM <= 0 || testPlanetDiameterKM > 200000) {
-			System.out.println("Bad Diameter");
+		if(testPlanetDiameterKM <= 0 || testPlanetDiameterKM > 200000)
 			return false;
-		}
 		return true;
 	}
 	

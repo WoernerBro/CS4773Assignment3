@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import planet.detail.Planet;
+import planet.detail.PlanetBuilder;
 import planet.detail.PlanetController;
-import planet.detail.PlanetGatewayTXT;
 
 public class AppMain extends Application {
 	public AppMain() {
@@ -21,8 +21,7 @@ public class AppMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Planet planet = new Planet();
-		planet.setGateway(new PlanetGatewayTXT());
+		Planet planet = PlanetBuilder.makeEmptyPlanet();
 		PlanetController controller = new PlanetController(planet);
 
 		FXMLLoader loader = new FXMLLoader(controller.getClass().getResource("PlanetView.fxml"));
