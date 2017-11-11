@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -74,6 +76,17 @@ public class PlanetController implements Initializable {
     
     @FXML
     void loadPlanet(ActionEvent event) {
+    	JDialog.setDefaultLookAndFeelDecorated(true);
+    	int response = JOptionPane.showConfirmDialog(null,
+    					"Do you really want to load new values into fields?",
+    					"Confirm Loading New Planet",
+    					JOptionPane.YES_NO_OPTION,
+    					JOptionPane.QUESTION_MESSAGE);
+    	if (response == JOptionPane.YES_OPTION)
+    		startLoad();
+    }
+    
+    void startLoad() {
     	try {
     		planet = planet.load();
     		planet.setPlanetImage(planet.getPlanetImage());

@@ -3,25 +3,13 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
-//import java.util.ArrayList;
 import java.util.Scanner;
+import planet.detail.*;
 
 import org.junit.Test;
 
-//import war.Card;
-//import war.Deck;
-//import war.GameOutput;
-//import war.Menu;
-//import war.Player;
-//import war.Rank;
-//import war.Suit;
-//import war.Turn;
-
 public class TestApp {
 	
-//	private static Deck deck;
-//	private static Turn turn;
-//	private static GameOutput gameOutput;
 	private static String expectedOutput;
 	
 	public String getExpected(String fileName)  throws Exception {
