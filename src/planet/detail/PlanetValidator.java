@@ -15,20 +15,25 @@ public class PlanetValidator {
 		return true;
 	}
 
-	public static boolean validateDiameter(float testPlanetDiameterKM) {
-		if(testPlanetDiameterKM <= 0 || testPlanetDiameterKM > 200000)
+	public static boolean validateDiameter(String testPlanetDiameterKM) {
+		testPlanetDiameterKM = testPlanetDiameterKM.replaceAll(",","");
+		Float planetDiameterKM = Float.valueOf(testPlanetDiameterKM);
+		if(planetDiameterKM <= 0.00 || planetDiameterKM > 200000.00)
 			return false;
 		return true;
 	}
 	
-	public static boolean validateSurfaceTemperature(float testPlanetMeanSurfaceTempC) {
-		if(testPlanetMeanSurfaceTempC < -273.15 || testPlanetMeanSurfaceTempC > 500.0)
+	public static boolean validateSurfaceTemperature(String testPlanetMeanSurfaceTempC) {
+		Float planetMeanSurfaceTempC = Float.valueOf(testPlanetMeanSurfaceTempC);
+		if(planetMeanSurfaceTempC < -273.15 || planetMeanSurfaceTempC > 500.00)
 			return false;
 		return true;
 	}
 	
-	public static boolean validateNumberOfMoons(int testPlanetNumberOfMoons) {
-		if(testPlanetNumberOfMoons < 0 || testPlanetNumberOfMoons > 1000)
+	public static boolean validateNumberOfMoons(String testPlanetNumberOfMoons) {
+		testPlanetNumberOfMoons = testPlanetNumberOfMoons.replaceAll(",","");
+		int planetNumberOfMoons = Integer.valueOf(testPlanetNumberOfMoons);
+		if(planetNumberOfMoons < 0 || planetNumberOfMoons > 1000)
 			return false;
 		return true;
 	}

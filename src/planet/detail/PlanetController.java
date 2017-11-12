@@ -89,13 +89,13 @@ public class PlanetController implements Initializable {
     void startLoad() {
     	try {
     		planet = planet.load();
-    		planet.setPlanetImage(planet.getPlanetImage());
+    		planetImage.setImage(new Image(planet.getPlanetImage()));
     		planetName.setText(planet.getPlanetName());
-			planetDiameterKM.setText(String.valueOf(planet.getPlanetDiameterKM()));
-			planetDiameterM.setText(String.valueOf(planet.getPlanetDiameterM()));
-			planetMeanSurfaceTempC.setText(String.valueOf(planet.getPlanetMeanSurfaceTempC()));
-			planetMeanSurfaceTempF.setText(String.valueOf(planet.getPlanetMeanSurfaceTempF()));
-			planetNumberOfMoons.setText(String.valueOf(planet.getPlanetNumberOfMoons()));
+			planetDiameterKM.setText(String.format("%,.2f", planet.getPlanetDiameterKM()));
+			planetDiameterM.setText(String.format("%,.2f", planet.getPlanetDiameterM()));
+			planetMeanSurfaceTempC.setText(String.format("%,.2f", planet.getPlanetMeanSurfaceTempC()));
+			planetMeanSurfaceTempF.setText(String.format("%,.2f", planet.getPlanetMeanSurfaceTempF()));
+			planetNumberOfMoons.setText(String.format("%,d", planet.getPlanetNumberOfMoons()));
     		fancyPlanetName.setText(planet.getFancyPlanetName());
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
@@ -109,10 +109,9 @@ public class PlanetController implements Initializable {
     		validatePlanetDiameter();
     		validatePlanetSurfaceTemp();
     		validatePlanetNumberOfMoons();
-    		planet = PlanetBuilder.updatePlanet(planet, planetName.getText(), Float.parseFloat(planetDiameterKM.getText()), 
-    				Float.parseFloat(planetDiameterM.getText()), Float.parseFloat(planetMeanSurfaceTempC.getText()), 
-    				Float.parseFloat(planetMeanSurfaceTempF.getText()), (int) Float.parseFloat(planetNumberOfMoons.getText()), fancyPlanetName.getText());
-    		System.out.println(planet.toString());
+    		planet = PlanetBuilder.updatePlanet(planet, planetName.getText(), Float.parseFloat(planetDiameterKM.getText().replace(",", "")), 
+    				Float.parseFloat(planetDiameterM.getText().replace(",", "")), Float.parseFloat(planetMeanSurfaceTempC.getText()), 
+    				Float.parseFloat(planetMeanSurfaceTempF.getText()), (int) Float.parseFloat(planetNumberOfMoons.getText().replace(",", "")), fancyPlanetName.getText());
     		planet.save();
     	} catch(GatewayException e) {
     		System.err.println(e.getMessage());
@@ -128,7 +127,7 @@ public class PlanetController implements Initializable {
     }
     
     void validatePlanetDiameter() {
-    	if(!PlanetValidator.validateDiameter(Float.valueOf(planetDiameterKM.getText()))) {
+    	if(!PlanetValidator.validateDiameter(planetDiameterKM.getText())) {
 			planetDiameterKM.setText("Invalid");
 			planetDiameterM.setText("");
 			throw new InvalidPlanetException("Planet diameter(KM) is invalid");
@@ -136,7 +135,7 @@ public class PlanetController implements Initializable {
     }
     
     void validatePlanetSurfaceTemp() {
-    	if(!PlanetValidator.validateSurfaceTemperature(Float.valueOf(planetMeanSurfaceTempC.getText()))) {
+    	if(!PlanetValidator.validateSurfaceTemperature(planetMeanSurfaceTempC.getText())) {
 			planetMeanSurfaceTempC.setText("Invalid");
 			planetMeanSurfaceTempF.setText("");
 			throw new InvalidPlanetException("Planet mean surface temperature(C) is invalid");
@@ -144,7 +143,7 @@ public class PlanetController implements Initializable {
     }
     
     void validatePlanetNumberOfMoons() {
-		if(!PlanetValidator.validateNumberOfMoons(Integer.valueOf(planetNumberOfMoons.getText()))) {
+		if(!PlanetValidator.validateNumberOfMoons(planetNumberOfMoons.getText())) {
 			planetNumberOfMoons.setText("Invalid");
 			throw new InvalidPlanetException("Planet number of moons is invalid");
 		}

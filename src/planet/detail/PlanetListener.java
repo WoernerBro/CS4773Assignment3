@@ -5,7 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class PlanetListener {    
+public class PlanetListener {
     public static void planetNameChangeListener(TextField planetName, Label fancyPlanetName) {
     	planetName.focusedProperty().addListener(new ChangeListener<Boolean>() {
 		    @Override
@@ -28,12 +28,14 @@ public class PlanetListener {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		        if (!newPropertyValue) {
-		        	if(!PlanetValidator.validateDiameter(Float.parseFloat(planetDiameterKM.getText()))){
+		        	if(!PlanetValidator.validateDiameter(planetDiameterKM.getText())){
 		        		System.out.println("Invalid diameter");
 		        		planetDiameterKM.setText("Invalid");
 		        		planetDiameterM.setText("");
-		        	} else
-		        		planetDiameterM.setText(String.valueOf(Float.valueOf(planetDiameterKM.getText())/8f*5f));
+		        	} else {
+		        		planetDiameterKM.setText(String.format("%,.2f", Float.parseFloat(planetDiameterKM.getText().replace(",", ""))));
+		        		planetDiameterM.setText(String.format("%,.2f", Float.parseFloat(planetDiameterKM.getText().replace(",", ""))/8f*5f));
+		        	}
 		        } else if (planetDiameterKM.getText().equals("Invalid"))
 		        	planetDiameterKM.setText("");
 		    }
@@ -45,12 +47,14 @@ public class PlanetListener {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		       if (!newPropertyValue) {
-		        	if(!PlanetValidator.validateSurfaceTemperature(Float.parseFloat(planetMeanSurfaceTempC.getText()))){
+		        	if(!PlanetValidator.validateSurfaceTemperature(planetMeanSurfaceTempC.getText())){
 		        		System.out.println("Invalid Surface Temp");
 		        		planetMeanSurfaceTempC.setText("Invalid");
 		        		planetMeanSurfaceTempF.setText("");
-		        	} else
-		        		planetMeanSurfaceTempF.setText(String.valueOf(Float.valueOf(planetMeanSurfaceTempC.getText())*(9f/5f)+32));
+		        	} else {
+		        		planetMeanSurfaceTempF.setText(String.format("%,.2f", Float.parseFloat(planetMeanSurfaceTempC.getText())));
+		        		planetMeanSurfaceTempF.setText(String.format("%,.2f", Float.parseFloat(planetMeanSurfaceTempC.getText())*(9f/5f)+32));
+		        	}
 		        } else if (planetMeanSurfaceTempC.getText().equals("Invalid"))
 		        	planetMeanSurfaceTempC.setText("");
 		    }
@@ -62,10 +66,11 @@ public class PlanetListener {
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
 		    	if(!newPropertyValue) {
-		    		if(!PlanetValidator.validateNumberOfMoons((int) Float.parseFloat(planetNumberOfMoons.getText()))){
-		        		System.out.println("Invalid Number of Moons");
+	    			if(!PlanetValidator.validateNumberOfMoons(planetNumberOfMoons.getText())){
+		    			System.out.println("Invalid Number of Moons");
 		        		planetNumberOfMoons.setText("Invalid");
-		        	}
+		        	} else
+		        		planetNumberOfMoons.setText(String.format("%,d", Integer.parseInt(planetNumberOfMoons.getText().replace(",", ""))));
 		    	} else if (newPropertyValue && planetNumberOfMoons.getText().equals("Invalid"))
 		    		planetNumberOfMoons.setText("");
 		    }
