@@ -9,9 +9,7 @@ import planet.detail.*;
 
 import org.junit.Test;
 
-import javafx.stage.FileChooser;
-
-public class TestApp {
+public class TestPlanet {
 	
 	private static String expectedOutput;
 	private static Planet planet = new Planet();
@@ -39,43 +37,43 @@ public class TestApp {
 	
 	@Test
 	public void testCase3() throws Exception {
-		assertEquals(PlanetValidator.validateNumberOfMoons("-6969"), false);
+		assertEquals(PlanetValidator.validateNumberOfMoons("-1"), false);
 	}
 	
 	@Test
 	public void testCase4() throws Exception {
-		assertEquals(PlanetValidator.validateNumberOfMoons("6000000"), false);
+		assertEquals(PlanetValidator.validateNumberOfMoons("1,001"), false);
 	}
 	
 	@Test
 	public void testCase5() throws Exception {
-		assertEquals(PlanetValidator.validateDiameter("-3"), false);
+		assertEquals(PlanetValidator.validateDiameter("-1"), false);
 	}
 	
 	@Test
 	public void testCase6() throws Exception {
-		assertEquals(PlanetValidator.validateDiameter("999999999"), false);
+		assertEquals(PlanetValidator.validateDiameter("200,001"), false);
 	}
 	
 	@Test
 	public void testCase7() throws Exception {
-		assertEquals(PlanetValidator.validateSurfaceTemperature("-50000000"), false);
+		assertEquals(PlanetValidator.validateSurfaceTemperature("-274"), false);
 	}
 	
 	@Test
 	public void testCase8() throws Exception {
-		assertEquals(PlanetValidator.validateSurfaceTemperature("500000000"), false);
+		assertEquals(PlanetValidator.validateSurfaceTemperature("501"), false);
 	}
 	
 	@Test
 	public void testCase9() throws Exception {
-		planet.setPlanetName("Earf");
+		planet.setPlanetName("Test10");
 		planet.setPlanetDiameterKM(42000);
 		planet.setPlanetDiameterM(26250);
 		planet.setPlanetMeanSurfaceTempC(30);
 		planet.setPlanetMeanSurfaceTempF(86);
 		planet.setPlanetNumberOfMoons(30);
-		planet.setFancyPlanetName("Earf");
+		planet.setFancyPlanetName("Test10");
 		
 		try {
 			planet.save();
@@ -83,7 +81,7 @@ public class TestApp {
 			System.err.println(saveException.getMessage());
 		}
 		
-		assertEquals(getExpected("Earf.txt"), planet.toString() + "\n");
+		assertEquals(getExpected("Test10.txt"), planet.toString() + "\n");
 	}
 	
 	@Test
@@ -97,7 +95,7 @@ public class TestApp {
 		
 		//	The only change was forcing "file" to open "Earf.txt" by removing
 		//	the code which would open a file browser to choose it manually
-        File file = new File ("Earf.txt");
+        File file = new File ("Test10.txt");
         
         try {
         	planet = readFile(file);
