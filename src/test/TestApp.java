@@ -11,6 +11,8 @@ import org.junit.Test;
 public class TestApp {
 	
 	private static String expectedOutput;
+	private static Planet planet;
+	private static PlanetGatewayTXT gateway;
 	
 	public String getExpected(String fileName)  throws Exception {
 		StringBuffer fileContents = new StringBuffer();
@@ -42,7 +44,53 @@ public class TestApp {
 //	}
 	
 	@Test
-	public void testCase1() throws Exception {
-		assertEquals("", "");
+	public void testCase1() throws Exception {		
+		assertEquals(PlanetValidator.validatePlanetName("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"),
+				false);
+	}
+	
+	@Test
+	public void testCase2() throws Exception {
+		assertEquals(PlanetValidator.validatePlanetName("Ke$ha"), false);
+	}
+	
+	@Test
+	public void testCase3() throws Exception {
+		assertEquals(PlanetValidator.validateNumberOfMoons("-6969"), false);
+	}
+	
+	@Test
+	public void testCase4() throws Exception {
+		assertEquals(PlanetValidator.validateNumberOfMoons("0"), true);
+	}
+	
+	@Test
+	public void testCase5() throws Exception {
+		assertEquals(PlanetValidator.validateDiameter("-3"), false);
+	}
+	
+	@Test
+	public void testCase6() throws Exception {
+		assertEquals(PlanetValidator.validateDiameter("999999999"), false);
+	}
+	
+	@Test
+	public void testCase7() throws Exception {
+		assertEquals(PlanetValidator.validateSurfaceTemperature("-50000000"), false);
+	}
+	
+	@Test
+	public void testCase8() throws Exception {
+		assertEquals(PlanetValidator.validateSurfaceTemperature("500000000"), false);
+	}
+	
+	@Test
+	public void testCase9() throws Exception {
+		
+	}
+	
+	@Test
+	public void testCase10() throws Exception {
+		
 	}
 }
