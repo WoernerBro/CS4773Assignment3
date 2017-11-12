@@ -11,8 +11,7 @@ import org.junit.Test;
 public class TestApp {
 	
 	private static String expectedOutput;
-	private static Planet planet;
-	private static PlanetGatewayTXT gateway;
+	private static Planet planet = new Planet();
 	
 	public String getExpected(String fileName)  throws Exception {
 		StringBuffer fileContents = new StringBuffer();
@@ -61,7 +60,7 @@ public class TestApp {
 	
 	@Test
 	public void testCase4() throws Exception {
-		assertEquals(PlanetValidator.validateNumberOfMoons("0"), true);
+		assertEquals(PlanetValidator.validateNumberOfMoons("6000000"), false);
 	}
 	
 	@Test
@@ -86,7 +85,20 @@ public class TestApp {
 	
 	@Test
 	public void testCase9() throws Exception {
+		planet.setPlanetName("Earf");
+		planet.setPlanetDiameterKM(42000);
+		planet.setPlanetDiameterM(26250);
+		planet.setPlanetMeanSurfaceTempC(30);
+		planet.setPlanetMeanSurfaceTempF(86);
+		planet.setPlanetNumberOfMoons(30);
+		planet.setFancyPlanetName("Earf");
+		try {
+			planet.save();
+		} catch (GatewayException saveException) {
+			System.err.println(saveException.getMessage());
+		}
 		
+		assertEquals(getExpected("Earf.txt"), planet.toString() + "\n");
 	}
 	
 	@Test
