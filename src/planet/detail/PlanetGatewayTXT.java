@@ -31,7 +31,7 @@ public class PlanetGatewayTXT extends PlanetGateway {
 	public void writeFile(Planet planet) throws IOException {
 		FileWriter writer = new FileWriter(filePath);
 		PrintWriter printer = new PrintWriter(writer);
-		printer.print(planet.toString());
+		printer.print("file:images/" + planet.toString());
 		printer.close();
 		writer.close();
 	}
