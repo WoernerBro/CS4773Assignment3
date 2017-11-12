@@ -3,10 +3,13 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import planet.detail.*;
 
 import org.junit.Test;
+
+import javafx.stage.FileChooser;
 
 public class TestApp {
 	
@@ -22,25 +25,6 @@ public class TestApp {
 		fileInput.close();
 		return expectedOutput;
 	}
-	
-	/* KEEP AS EXAMPLE OF TEST CASE USING getExpected() */
-//	@Test
-//	public void testVariation1Player1Wins() throws Exception {
-//		Menu.setVariation(1);
-//		gameOutput = new GameOutput();
-//		
-//		deck = new Deck();
-//		deck.addCard(new Card(Rank.ACE, Suit.SPADES));
-//		deck.addCard(new Card(Rank.TWO, Suit.CLUBS));
-//		
-//		ArrayList<Player> players = new ArrayList<Player>();
-//		players.add(new Player("player1", deck, 1));
-//		players.add(new Player("player2", deck, 1));
-//		
-//		turn = new Turn(players, gameOutput);
-//		gameOutput.appendEvent(turn.runTurn());
-//		assertEquals(getExpected("Variation1Player1Wins.txt"), gameOutput.getStringBuffer().toString());
-//	}
 	
 	@Test
 	public void testCase1() throws Exception {		
@@ -104,6 +88,43 @@ public class TestApp {
 	
 	@Test
 	public void testCase10() throws Exception {
+		assertEquals(planet.toString(), load().toString());
+	}
+	
+	public Planet load() throws GatewayException {
+        Planet planet = null;
+		System.out.println("Loading ...");
 		
+		//	The only change was forcing "file" to open "Earf.txt" by removing
+		//	the code which would open a file browser to choose it manually
+        File file = new File ("Earf.txt");
+        
+        try {
+        	planet = readFile(file);
+        } catch (FileNotFoundException loadException) {
+        	System.err.println(loadException.getMessage());
+        }
+		
+		System.out.println(planet.getPlanetName() + " loaded!");
+		return planet;
+	}
+	
+	public Planet readFile(File file) throws FileNotFoundException {
+		Scanner textReader = new Scanner(file);
+		
+		Planet planet = new Planet();
+		planet.setPlanetImage(textReader.nextLine());
+		planet.setPlanetName(textReader.nextLine());
+		planet.setPlanetDiameterKM(textReader.nextFloat());
+		planet.setPlanetDiameterM(textReader.nextFloat());
+		planet.setPlanetMeanSurfaceTempC(textReader.nextFloat());
+		planet.setPlanetMeanSurfaceTempF(textReader.nextFloat());
+		planet.setPlanetNumberOfMoons(textReader.nextInt());
+		textReader.nextLine();
+		planet.setFancyPlanetName(textReader.nextLine());
+		
+		textReader.close();
+		
+		return planet;
 	}
 }
