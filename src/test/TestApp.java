@@ -92,6 +92,7 @@ public class TestApp {
 		planet.setPlanetMeanSurfaceTempF(86);
 		planet.setPlanetNumberOfMoons(30);
 		planet.setFancyPlanetName("Earf");
+		
 		try {
 			planet.save();
 		} catch (GatewayException saveException) {
