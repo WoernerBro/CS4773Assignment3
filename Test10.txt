@@ -1,4 +1,4 @@
-no_image.png
+file:images/no_image.png
 Test10
 42000.0
 26250.0
